@@ -1,5 +1,6 @@
 from pykt.preprocess.data_proprocess import process_raw_data
 from pykt.models.init_model import load_model
+import pandas as pd
 
 def test_process_raw_data():
     res = process_raw_data("assist2015", {"assist2015":"data/assist2015/2015_100_skill_builders_main_problems.csv"})
@@ -33,35 +34,18 @@ from torch.utils.data import DataLoader, TensorDataset
 q = torch.randn(32, 10, 10)
 r = torch.randn(32, 10, 10)
 
-#train the model
-class LitModel(pl.LightningModule):
-    def __init__(self, model):
-        super(LitModel, self).__init__()
-        self.model = model
-        self.loss_fn = torch.nn.CrossEntropyLoss()
-
-    def forward(self, x):
-        return self.model(x)
-
-    def training_step(self, batch, batch_idx):
-        x, y = batch
-        y_hat = self.model(x)
-        loss = self.loss_fn(y_hat, y)
-        self.log('train_loss', loss)
-        return loss
-
-    def configure_optimizers(self):
-        return torch.optim.Adam(self.model.parameters(), lr=1e-3)
-
-# Dummy data
-x = torch.randn(100, 10, 10)
-y = torch.randint(0, 10, (100,))
-
-dataset = TensorDataset(x, y)
+dataset = pd.read_csv("data/assist2015/train_valid.csv")
 train_loader = DataLoader(dataset, batch_size=32, shuffle=True)
 
+print(dataset.head())
+print(dataset.iloc[9426])
+
+print(train_loader)
+print(type(train_loader)) #hoe werkt die train_loader precies?
+print(train_loader.dataset)
+
 # Initialize the Lightning model
-lit_model = LitModel(model)
+lit_model = model
 
 # Train the model
 trainer = pl.Trainer(max_epochs=10)

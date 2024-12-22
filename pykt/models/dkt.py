@@ -6,7 +6,7 @@ import lightning as pl
 
 from torch.nn import Module, Embedding, LSTM, Linear, Dropout
 
-class DKT(Module, pl.LightningModule):
+class DKT(pl.LightningModule):
     def __init__(self, num_c, emb_size, dropout=0.1, emb_type='qid', emb_path="", pretrain_dim=768):
         super().__init__()
         self.model_name = "dkt"
@@ -47,4 +47,5 @@ class DKT(Module, pl.LightningModule):
     
 
     def configure_optimizers(self):
-        return torch.optim.Adam(self.model.parameters(), lr=1e-3)
+        optimizer = torch.optim.Adam(self.parameters(), lr=1e-3) #waar komt die parameters vandaan? Zit dat in de superclass?
+        return optimizer
