@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "pykt-toolkit"
+version = "0.0.38"
+description = "pyKT: A Python Library to Benchmark Deep Learning based Knowledge Tracing Models"
+authors = ["pykt-team <pykt.team@gmail.com>"]
+readme = "README.md"
+package-mode=false
+
+[tool.poetry.dependencies]
+python = "3.12.8"
+numpy = "<2"
+pandas = ">=1.1.5"
+scikit-learn = "*"
+torch = "2.2.2"
+wandb = ">=0.12.9"
+tqdm = "4.67.1"
+einops = "^0.8.0"
+matplotlib = "^3.10.0"
+lightning = "^2.5.0.post0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -37,6 +37,7 @@ device = "cpu" if not torch.cuda.is_available() else "cuda"
 
 def init_model(model_name, model_config, data_config, emb_type):
     if model_name == "dkt":
+        print("recoginzed dkt")
         model = DKT(data_config["num_c"], **model_config, emb_type=emb_type, emb_path=data_config["emb_path"]).to(device)
     elif model_name == "dkt+":
         model = DKTPlus(data_config["num_c"], **model_config, emb_type=emb_type, emb_path=data_config["emb_path"]).to(device)
